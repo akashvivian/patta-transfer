@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Dashboard | TamilNilam Portal</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom Glassmorphism Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Floating Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom py-3 sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fa-solid fa-map-location-dot fs-3 text-primary me-2"></i>
+                <span class="navbar-brand-text">TamilNilam Portal</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="apply-patta.html">Apply for Patta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="status.html">Track Status</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button onclick="logoutCitizen()" class="btn btn-outline-danger px-4 rounded-pill font-weight-500"><i class="fa-solid fa-right-from-bracket me-1"></i> Log Out</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="container py-5">
+        
+        <!-- Welcome Card Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card p-4 p-md-5 bg-primary text-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                             <span class="badge bg-light text-dark mb-3">Citizen Profile</span>
+                             <h2 class="display-5 fw-bold mb-2">Welcome Back, <span id="user-display-name">Citizen</span>!</h2>
+                         </div>
+                         <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                             <a href="apply-patta.html" class="btn btn-light btn-lg fw-bold"><i class="fa-solid fa-file-circle-plus me-2"></i> Apply For Patta</a>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         <!-- Metric Summary Cards -->
+         <div class="row g-4 mb-5">
+             <!-- Total Filed -->
+             <div class="col-md-4">
+                 <div class="glass-card p-4 d-flex align-items-center">
+                     <div class="bg-primary text-white rounded-circle p-3 me-3" style="width: 55px; height: 55px; display: flex; justify-content: center; align-items: center;">
+                         <i class="fa-solid fa-folder-open fs-4"></i>
+                     </div>
+                     <div>
+                         <h6 class="text-secondary small fw-bold mb-1">Total Applications</h6>
+                         <h3 class="fw-bold mb-0" id="stat-total">0</h3>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Approved Applications -->
+             <div class="col-md-4">
+                 <div class="glass-card p-4 d-flex align-items-center">
+                     <div class="bg-success text-white rounded-circle p-3 me-3" style="width: 55px; height: 55px; display: flex; justify-content: center; align-items: center;">
+                         <i class="fa-solid fa-circle-check fs-4"></i>
+                     </div>
+                     <div>
+                         <h6 class="text-secondary small fw-bold mb-1">Approved Requests</h6>
+                         <h3 class="fw-bold mb-0" id="stat-approved">0</h3>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Pending Review -->
+             <div class="col-md-4">
+                 <div class="glass-card p-4 d-flex align-items-center">
+                     <div class="bg-warning text-white rounded-circle p-3 me-3" style="width: 55px; height: 55px; display: flex; justify-content: center; align-items: center;">
+                         <i class="fa-solid fa-clock-rotate-left fs-4"></i>
+                     </div>
+                     <div>
+                         <h6 class="text-secondary small fw-bold mb-1">Pending Verification</h6>
+                         <h3 class="fw-bold mb-0" id="stat-pending">0</h3>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         <!-- Recent Applications Table Section -->
+         <div class="row">
+             <div class="col-12">
+                 <div class="glass-card p-4 border-0 shadow">
+                     <div class="d-flex justify-content-between align-items-center mb-4">
+                         <div>
+                             <h4 class="fw-bold mb-1">Recent Patta Submissions</h4>
+                         </div>
+                         <a href="status.html" class="btn btn-outline-primary px-3 rounded-pill text-decoration-none">Track Timeline <i class="fa-solid fa-arrow-trend-up ms-1"></i></a>
+                     </div>
+
+                     <!-- Alert message when list empty -->
+                     <div id="no-apps-message" class="text-center py-5 d-none">
+                         <i class="fa-solid fa-file-invoice fs-1 text-muted mb-3 d-block"></i>
+                         <h5 class="fw-bold text-secondary mb-4">No Land Patta Applications Found</h5>
+                         <a href="apply-patta.html" class="btn btn-primary-gradient px-4 rounded-pill">Apply for New Patta</a>
+                     </div>
+
+                     <!-- Application Table -->
+                     <div class="table-responsive" id="table-wrapper">
+                         <table class="table table-glass align-middle">
+                             <thead>
+                                 <tr>
+                                     <th>Application ID</th>
+                                     <th>Applicant Name</th>
+                                     <th>District & Taluk</th>
+                                     <th>Survey & Patta</th>
+                                     <th>Deed Type</th>
+                                     <th>Status</th>
+                                     <th>Action</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="applications-tbody">
+                                 <!-- Dynamic JS table rows loading -->
+                             </tbody>
+                         </table>
+                     </div>
+
+                 </div>
+             </div>
+         </div>
+
+     </div>
+
+     <!-- Footer -->
+     <footer class="py-4 mt-auto">
+         <div class="container text-center">
+             <div class="d-flex align-items-center justify-content-center">
+                 <i class="fa-solid fa-map-location-dot fs-3 text-primary me-2"></i>
+                 <span class="navbar-brand-text">TamilNilam Portal</span>
+             </div>
+         </div>
+     </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Centralized configuration script -->
+    <script src="js/config.js"></script>
+
+    <!-- JavaScript integration with Fetch API -->
+    <script>
+        let currentUser = null;
+
+        // Security Route Guard
+        document.addEventListener("DOMContentLoaded", () => {
+            const userJson = localStorage.getItem("patta_user");
+            if (!userJson) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            currentUser = JSON.parse(userJson);
+            
+            // Redirect admin to appropriate page
+            if (currentUser.role === "ADMIN") {
+                window.location.href = "admin-dashboard.html";
+                return;
+            }
+
+            // Update user details UI
+            document.getElementById("user-display-name").innerText = currentUser.name;
+
+            // Load citizen's recent applications
+            loadCitizenApplications();
+        });
+
+        // Fetch citizen's applications
+        async function loadCitizenApplications() {
+            const API_URL = `${CONFIG.API_BASE_URL}/api/patta/user/${currentUser.id}`;
+
+            try {
+                const response = await fetch(API_URL);
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    const apps = result.data;
+                    updateDashboardStats(apps);
+
+                    if (apps.length === 0) {
+                        document.getElementById("no-apps-message").classList.remove("d-none");
+                        document.getElementById("table-wrapper").classList.add("d-none");
+                    } else {
+                        document.getElementById("no-apps-message").classList.add("d-none");
+                        document.getElementById("table-wrapper").classList.remove("d-none");
+                        renderApplicationsTable(apps);
+                    }
+                } else {
+                    console.error("Failed to load records: ", result.message);
+                }
+            } catch (error) {
+                console.error("Dashboard connection failure: ", error);
+            }
+        }
+
+        // Render application data inside table
+        function renderApplicationsTable(apps) {
+            const tbody = document.getElementById("applications-tbody");
+            tbody.innerHTML = ""; // Clear existing rows
+
+            // Sort applications descending by ID (newest first)
+            apps.sort((a, b) => b.id - a.id);
+
+            apps.forEach(app => {
+                const row = document.createElement("tr");
+
+                // Get correct badge style
+                let badgeClass = "status-pending";
+                let iconClass = "fa-clock";
+                if (app.status.toLowerCase() === "approved") {
+                    badgeClass = "status-approved";
+                    iconClass = "fa-check-circle";
+                } else if (app.status.toLowerCase() === "rejected") {
+                    badgeClass = "status-rejected";
+                    iconClass = "fa-circle-xmark";
+                }
+
+                row.innerHTML = `
+                    <td class="fw-bold text-indigo">#PA-${app.id}</td>
+                    <td><strong>${app.applicantName}</strong></td>
+                    <td>
+                        <div class="fw-semibold text-indigo small">${app.district}</div>
+                        <div class="text-secondary small" style="font-size: 0.75rem;">${app.taluk}</div>
+                    </td>
+                    <td>
+                        <div>Survey: <code>${app.surveyNumber}</code></div>
+                        <div class="small">Patta: <code>${app.pattaNumber}</code></div>
+                    </td>
+                    <td><span class="badge bg-secondary-subtle text-secondary border px-2 py-1">${app.documentType}</span></td>
+                    <td>
+                        <span class="badge badge-status ${badgeClass}">
+                            <i class="fa-solid ${iconClass} me-1"></i> ${app.status}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="status.html?id=${app.id}" class="btn btn-sm btn-outline-primary rounded-pill px-3">View <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Calculate and update metrics widgets
+        function updateDashboardStats(apps) {
+            let total = apps.length;
+            let approved = 0;
+            let pending = 0;
+
+            apps.forEach(app => {
+                if (app.status.toLowerCase() === "approved") approved++;
+                else if (app.status.toLowerCase() === "pending") pending++;
+            });
+
+            document.getElementById("stat-total").innerText = total;
+            document.getElementById("stat-approved").innerText = approved;
+            document.getElementById("stat-pending").innerText = pending;
+        }
+
+        // Sign Out applicant
+        function logoutCitizen() {
+            localStorage.removeItem("patta_user");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

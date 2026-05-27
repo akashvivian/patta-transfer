@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Command Center | TamilNilam Portal</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom Glassmorphism Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Floating Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom py-3 sticky-top" style="background: rgba(15, 23, 42, 0.9) !important; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fa-solid fa-map-location-dot fs-3 text-info me-2"></i>
+                <span class="navbar-brand-text text-white">TamilNilam Portal <span class="badge bg-info text-dark small ms-1" style="font-size: 0.65rem;">ADMIN</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50 active" href="admin-dashboard.html">Console</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button onclick="logoutAdmin()" class="btn btn-outline-danger px-4 rounded-pill font-weight-500"><i class="fa-solid fa-power-off me-1"></i> Log Out</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container py-5">
+        
+         <!-- Dashboard Header -->
+         <div class="row mb-5">
+             <div class="col-12">
+                 <div class="card p-4 p-md-5 bg-dark text-white border-0">
+                     <span class="badge bg-info text-dark px-3 py-2 mb-3">Verification console</span>
+                     <h2 class="display-5 fw-bold mb-0">Revenue Records Console</h2>
+                 </div>
+             </div>
+         </div>
+ 
+         <!-- Metric widgets for Admin -->
+         <div class="row g-4 mb-5">
+             <!-- Total Applications -->
+             <div class="col-md-3">
+                 <div class="glass-card p-4 d-flex align-items-center">
+                     <div class="bg-primary text-white rounded-circle p-3 me-3" style="width: 55px; height: 55px; display: flex; justify-content: center; align-items: center;">
+                         <i class="fa-solid fa-list-check fs-4"></i>
+                     </div>
+                     <div>
+                         <h6 class="text-secondary small fw-bold mb-1">Total Submissions</h6>
+                         <h3 class="fw-bold mb-0" id="admin-total">0</h3>
+                     </div>
+                 </div>
+             </div>
+ 
+             <!-- Pending Review -->
+             <div class="col-md-3">
+                 <div class="glass-card p-4 d-flex align-items-center">
+                     <div class="bg-warning text-white rounded-circle p-3 me-3" style="width: 55px; height: 55px; display: flex; justify-content: center; align-items: center;">
+                         <i class="fa-solid fa-hourglass-half fs-4"></i>
+                     </div>
+                     <div>
+                         <h6 class="text-secondary small fw-bold mb-1">Pending Audit</h6>
+                         <h3 class="fw-bold mb-0" id="admin-pending">0</h3>
+                     </div>
+                 </div>
+             </div>
+ 
+             <!-- Approved Records -->
+             <div class="col-md-3">
+                 <div class="glass-card p-4 d-flex align-items-center">
+                     <div class="bg-success text-white rounded-circle p-3 me-3" style="width: 55px; height: 55px; display: flex; justify-content: center; align-items: center;">
+                         <i class="fa-solid fa-check-double fs-4"></i>
+                     </div>
+                     <div>
+                         <h6 class="text-secondary small fw-bold mb-1">Approved Patta</h6>
+                         <h3 class="fw-bold mb-0" id="admin-approved">0</h3>
+                     </div>
+                 </div>
+             </div>
+ 
+             <!-- Rejected Records -->
+             <div class="col-md-3">
+                 <div class="glass-card p-4 d-flex align-items-center">
+                     <div class="bg-danger text-white rounded-circle p-3 me-3" style="width: 55px; height: 55px; display: flex; justify-content: center; align-items: center;">
+                         <i class="fa-solid fa-ban fs-4"></i>
+                     </div>
+                     <div>
+                         <h6 class="text-secondary small fw-bold mb-1">Rejected Requests</h6>
+                         <h3 class="fw-bold mb-0" id="admin-rejected">0</h3>
+                     </div>
+                 </div>
+             </div>
+         </div>
+ 
+         <!-- Applications Audit Grid -->
+         <div class="row">
+             <div class="col-12">
+                 <div class="glass-card p-4 border-0 shadow">
+                     
+                     <!-- Search and Status filter controls -->
+                     <div class="row g-3 align-items-center mb-4">
+                         <div class="col-md-4">
+                             <h4 class="fw-bold mb-0">Incoming Submissions</h4>
+                         </div>
+                         
+                         <!-- Search input box -->
+                         <div class="col-md-4">
+                             <div class="input-group">
+                                 <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-search"></i></span>
+                                 <input type="text" id="admin-search-input" class="form-control border-start-0 ps-0" placeholder="Search applicant, survey, or patta..." onkeyup="filterApplications()">
+                             </div>
+                         </div>
+ 
+                         <!-- Status filter selector -->
+                         <div class="col-md-4">
+                             <select id="admin-status-filter" class="form-select" onchange="filterApplications()">
+                                 <option value="ALL">Show All Status</option>
+                                 <option value="Pending">Show Pending Reviews</option>
+                                 <option value="Approved">Show Approved Patta</option>
+                                 <option value="Rejected">Show Rejected Requests</option>
+                             </select>
+                         </div>
+                     </div>
+ 
+                     <!-- Alert message if empty -->
+                     <div id="admin-no-apps" class="text-center py-5 d-none">
+                         <i class="fa-solid fa-inbox fs-1 text-muted mb-3 d-block"></i>
+                         <h5 class="fw-bold text-secondary mb-0">No Land Records Found</h5>
+                     </div>
+ 
+                     <!-- Main Table -->
+                     <div class="table-responsive admin-table-container" id="admin-table-wrapper">
+                         <table class="table table-striped align-middle mb-0">
+                             <thead class="table-dark">
+                                 <tr>
+                                     <th>ID</th>
+                                     <th>Applicant & Contact</th>
+                                     <th>District & Taluk</th>
+                                     <th>Survey & Patta</th>
+                                     <th>Type</th>
+                                     <th>Deed</th>
+                                     <th>Verification Docs</th>
+                                     <th>Status</th>
+                                     <th class="text-center">Evaluation Actions</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="admin-tbody">
+                                 <!-- Dynamic JS render -->
+                             </tbody>
+                         </table>
+                     </div>
+ 
+                 </div>
+             </div>
+         </div>
+ 
+     </div>
+ 
+     <!-- Action Confirmation Modal -->
+     <div class="modal fade" id="decisionModal" tabindex="-1" aria-labelledby="decisionModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content glass-card p-0 border-0 shadow-lg">
+                 <div class="modal-header border-0 p-4">
+                     <h5 class="modal-title fw-bold" id="decisionModalLabel">Confirm Authority Action</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 </div>
+                 <div class="modal-body px-4 pb-4">
+                     <p id="decision-text">Are you sure you want to proceed with this application state change?</p>
+                     <div class="alert alert-warning p-2 small border-0 mb-0">
+                         <i class="fa-solid fa-circle-exclamation me-1"></i> Proceeding updates e-Land Records database immediately.
+                     </div>
+                 </div>
+                 <div class="modal-footer border-0 p-4 pt-0">
+                     <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                     <button type="button" id="btn-modal-confirm" class="btn btn-primary-gradient rounded-pill px-4">Confirm <i class="fa-solid fa-circle-check ms-1"></i></button>
+                 </div>
+             </div>
+         </div>
+     </div>
+ 
+     <!-- Footer -->
+     <footer class="py-4 mt-auto">
+         <div class="container text-center">
+             <div class="d-flex align-items-center justify-content-center">
+                 <i class="fa-solid fa-map-location-dot fs-3 text-primary me-2"></i>
+                 <span class="navbar-brand-text">TamilNilam Portal</span>
+             </div>
+         </div>
+     </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Centralized configuration script -->
+    <script src="js/config.js"></script>
+
+    <!-- JavaScript integration with Fetch API -->
+    <script>
+        let adminUser = null;
+        let incomingApplications = [];
+        let activeAppId = null;
+        let activeStatusChoice = null;
+        let bsDecisionModalObj = null;
+
+        // Security Route Guard check
+        document.addEventListener("DOMContentLoaded", () => {
+            const userJson = localStorage.getItem("patta_user");
+            if (!userJson) {
+                window.location.href = "login.html";
+                return;
+            }
+            adminUser = JSON.parse(userJson);
+
+            if (adminUser.role !== "ADMIN") {
+                window.location.href = "dashboard.html";
+                return;
+            }
+
+            // Initialize bootstrap modal reference
+            bsDecisionModalObj = new bootstrap.Modal(document.getElementById('decisionModal'));
+
+            loadIncomingApplications();
+        });
+
+        // Fetch all applications
+        async function loadIncomingApplications() {
+            const API_URL = CONFIG.API_BASE_URL + "/api/patta/all";
+
+            try {
+                const response = await fetch(API_URL);
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    incomingApplications = result.data;
+                    updateStatsWidgets(incomingApplications);
+                    renderAdminTable(incomingApplications);
+                } else {
+                    console.error("Fetch failure: ", result.message);
+                }
+            } catch (error) {
+                console.error("Admin dashboard network exception: ", error);
+            }
+        }
+
+        // Render table records
+        function renderAdminTable(apps) {
+            const tbody = document.getElementById("admin-tbody");
+            tbody.innerHTML = "";
+
+            if (apps.length === 0) {
+                document.getElementById("admin-no-apps").classList.remove("d-none");
+                document.getElementById("admin-table-wrapper").classList.add("d-none");
+                return;
+            }
+
+            document.getElementById("admin-no-apps").classList.add("d-none");
+            document.getElementById("admin-table-wrapper").classList.remove("d-none");
+
+            // Sort applications descending
+            apps.sort((a, b) => b.id - a.id);
+
+            apps.forEach(app => {
+                const row = document.createElement("tr");
+
+                let badgeClass = "status-pending";
+                if (app.status.toLowerCase() === "approved") badgeClass = "status-approved";
+                else if (app.status.toLowerCase() === "rejected") badgeClass = "status-rejected";
+
+                const baseFileUrl = CONFIG.API_BASE_URL + "/api/patta/files/";
+
+                // User details handling
+                const userName = app.user ? app.user.name : "N/A";
+                const userEmail = app.user ? app.user.email : "";
+                const userMobile = app.user ? app.user.mobile : "";
+
+                // Evaluation buttons conditional loading
+                let actionButtons = "";
+                if (app.status.toLowerCase() === "pending") {
+                    actionButtons = `
+                        <div class="d-flex justify-content-center gap-2">
+                            <button onclick="triggerDecision(${app.id}, 'Approved')" class="btn btn-sm btn-success px-3 py-1"><i class="fa-solid fa-circle-check"></i> Approve</button>
+                            <button onclick="triggerDecision(${app.id}, 'Rejected')" class="btn btn-sm btn-danger px-3 py-1"><i class="fa-solid fa-ban"></i> Reject</button>
+                        </div>
+                    `;
+                } else {
+                    actionButtons = `
+                        <div class="text-center text-muted small"><i class="fa-solid fa-lock me-1"></i> Audit Complete</div>
+                    `;
+                }
+
+                row.innerHTML = `
+                    <td class="fw-bold text-indigo">#PA-${app.id}</td>
+                    <td>
+                        <div class="fw-bold">${app.applicantName}</div>
+                        <div class="text-secondary small"><i class="fa-solid fa-user-tag me-1" style="font-size: 0.7rem;"></i> By: ${userName}</div>
+                        <div class="text-muted small" style="font-size: 0.75rem;"><i class="fa-solid fa-phone me-1" style="font-size: 0.65rem;"></i> ${userMobile} | <i class="fa-solid fa-envelope me-1" style="font-size: 0.65rem;"></i> ${userEmail}</div>
+                    </td>
+                    <td>
+                        <div class="fw-semibold text-indigo small">${app.district}</div>
+                        <div class="text-secondary small" style="font-size: 0.75rem;">${app.taluk}</div>
+                    </td>
+                    <td>
+                        <div>Survey: <code>${app.surveyNumber}</code></div>
+                        <div class="small">Existing Patta: <code>${app.pattaNumber}</code></div>
+                    </td>
+                    <td><span class="badge bg-primary-subtle text-primary border">${app.transferType}</span></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary border">${app.documentType}</span></td>
+                    <td>
+                        <div class="d-flex flex-column gap-1">
+                            <a target="_blank" href="${baseFileUrl + app.propertyDocument}" class="text-indigo text-decoration-none small text-truncate" style="max-width: 150px;"><i class="fa-solid fa-file-contract text-primary me-1"></i> Property Deed</a>
+                            <a target="_blank" href="${baseFileUrl + app.identityProof}" class="text-indigo text-decoration-none small text-truncate" style="max-width: 150px;"><i class="fa-solid fa-id-card text-primary me-1"></i> Identity Proof</a>
+                            <a target="_blank" href="${baseFileUrl + app.addressProof}" class="text-indigo text-decoration-none small text-truncate" style="max-width: 150px;"><i class="fa-solid fa-house-user text-primary me-1"></i> Address Proof</a>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge badge-status ${badgeClass}">${app.status}</span>
+                    </td>
+                    <td>
+                        ${actionButtons}
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Calculate and update metrics widgets
+        function updateStatsWidgets(apps) {
+            let total = apps.length;
+            let approved = 0;
+            let pending = 0;
+            let rejected = 0;
+
+            apps.forEach(app => {
+                const s = app.status.toLowerCase();
+                if (s === "approved") approved++;
+                else if (s === "pending") pending++;
+                else if (s === "rejected") rejected++;
+            });
+
+            document.getElementById("admin-total").innerText = total;
+            document.getElementById("admin-approved").innerText = approved;
+            document.getElementById("admin-pending").innerText = pending;
+            document.getElementById("admin-rejected").innerText = rejected;
+        }
+
+        // Filter and Search Applications
+        function filterApplications() {
+            const query = document.getElementById("admin-search-input").value.toLowerCase().trim();
+            const selectedStatus = document.getElementById("admin-status-filter").value;
+
+            const filtered = incomingApplications.filter(app => {
+                // 1. Filter by Status select
+                const matchesStatus = (selectedStatus === "ALL") || (app.status === selectedStatus);
+
+                // 2. Filter by Search input (name, survey, patta, district, taluk)
+                const userName = app.user ? app.user.name.toLowerCase() : "";
+                const matchesSearch = app.applicantName.toLowerCase().includes(query) ||
+                                      app.surveyNumber.toLowerCase().includes(query) ||
+                                      app.pattaNumber.toLowerCase().includes(query) ||
+                                      (app.district && app.district.toLowerCase().includes(query)) ||
+                                      (app.taluk && app.taluk.toLowerCase().includes(query)) ||
+                                      userName.includes(query);
+
+                return matchesStatus && matchesSearch;
+            });
+
+            renderAdminTable(filtered);
+        }
+
+        // Set action parameters and reveal modal
+        function triggerDecision(id, decision) {
+            activeAppId = id;
+            activeStatusChoice = decision;
+
+            const modalText = document.getElementById("decision-text");
+            modalText.innerHTML = `Are you sure you want to <strong>${decision.toUpperCase()}</strong> Land Title Transfer Application <strong>#PA-${id}</strong>?`;
+
+            const confirmBtn = document.getElementById("btn-modal-confirm");
+            if (decision === "Approved") {
+                confirmBtn.className = "btn btn-success rounded-pill px-4";
+            } else {
+                confirmBtn.className = "btn btn-danger rounded-pill px-4";
+            }
+
+            bsDecisionModalObj.show();
+        }
+
+        // Modal Action Confirmation Click handler
+        document.getElementById("btn-modal-confirm").addEventListener("click", async () => {
+            if (!activeAppId || !activeStatusChoice) return;
+
+            bsDecisionModalObj.hide();
+
+            const API_URL = `${CONFIG.API_BASE_URL}/api/patta/${activeAppId}/status?status=${activeStatusChoice}`;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "PUT"
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Success feedback
+                    loadIncomingApplications(); // Refresh records list
+                } else {
+                    alert("Status change failed: " + (result.message || "Unknown error"));
+                }
+            } catch (error) {
+                console.error("Decision transmission error: ", error);
+                alert("Cannot connect to server. Check Spring Boot status.");
+            } finally {
+                activeAppId = null;
+                activeStatusChoice = null;
+            }
+        });
+
+        // Log out admin
+        function logoutAdmin() {
+            localStorage.removeItem("patta_user");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

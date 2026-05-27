@@ -1,0 +1,35 @@
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven build directory
+backend/target/
+
+# IDE files and workspace settings
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+.vscode/
+
+# Local database/temporary files
+backend/uploads/
+backend/.maven/
+
+# OS files
+.DS_Store
+Thumbs.db

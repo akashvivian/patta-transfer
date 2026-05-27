@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Application Status | TamilNilam Portal</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom Glassmorphism Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Floating Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom py-3 sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fa-solid fa-map-location-dot fs-3 text-primary me-2"></i>
+                <span class="navbar-brand-text">TamilNilam Portal</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="apply-patta.html">Apply for Patta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="status.html">Track Status</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button onclick="logoutCitizen()" class="btn btn-outline-danger px-4 rounded-pill font-weight-500"><i class="fa-solid fa-right-from-bracket me-1"></i> Log Out</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container py-5">
+        
+        <div class="row">
+             <!-- Left Side: Application Selector -->
+             <div class="col-lg-4 mb-4">
+                 <div class="glass-card p-4 border-0 shadow">
+                     <h5 class="fw-bold mb-3"><i class="fa-solid fa-rectangle-list text-primary me-2"></i> Your Applications</h5>
+                     
+                     <div class="list-group list-group-flush rounded-12 overflow-hidden border border-light" id="app-selector-list">
+                         <!-- Dynamic items -->
+                     </div>
+                 </div>
+             </div>
+ 
+             <!-- Right Side: Details and Live Tracker -->
+             <div class="col-lg-8">
+                 <!-- Welcome/Select Instruction Card -->
+                 <div class="glass-card p-5 border-0 shadow text-center" id="select-instruction-card">
+                     <i class="fa-solid fa-truck-fast fs-1 text-primary mb-3"></i>
+                     <h4 class="fw-bold text-secondary">Real-Time Status Tracker</h4>
+                 </div>
+ 
+                 <!-- Live Details Card -->
+                 <div class="glass-card p-4 p-md-5 border-0 shadow d-none" id="details-card">
+                     
+                     <!-- App ID Header -->
+                     <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+                         <div>
+                             <span class="text-muted small">APPLICATION TRACKER</span>
+                             <h3 class="fw-bold mb-0" id="detail-app-id">#PA-00</h3>
+                         </div>
+                         <span class="badge badge-status" id="detail-app-badge">Pending</span>
+                     </div>
+ 
+                     <!-- Stepper Timeline component -->
+                     <h6 class="fw-bold text-uppercase text-secondary small mb-4">Audit Progression</h6>
+                     <div class="timeline-stepper mb-5">
+                         <div class="timeline-progress-bar" id="timeline-progress"></div>
+                         
+                         <!-- Step 1: Filed -->
+                         <div class="timeline-step completed" id="step-1">
+                             <i class="fa-solid fa-file-invoice"></i>
+                             <span class="timeline-step-label">Filed</span>
+                         </div>
+ 
+                         <!-- Step 2: Inspection -->
+                         <div class="timeline-step" id="step-2">
+                             <i class="fa-solid fa-users-viewfinder"></i>
+                             <span class="timeline-step-label">Inspection</span>
+                         </div>
+ 
+                         <!-- Step 3: Approved / Rejected -->
+                         <div class="timeline-step" id="step-3">
+                             <i class="fa-solid fa-certificate" id="step-3-icon"></i>
+                             <span class="timeline-step-label" id="step-3-label">Final Decision</span>
+                         </div>
+                     </div>
+ 
+                     <!-- Survey details grids -->
+                     <h6 class="fw-bold text-uppercase text-secondary small mb-3 border-bottom pb-2">Land survey details</h6>
+                     <div class="row g-3 mb-4">
+                         <div class="col-md-6">
+                             <label class="small text-muted">Applicant Name</label>
+                             <div class="fw-bold" id="detail-name">-</div>
+                         </div>
+                         <div class="col-md-3">
+                             <label class="small text-muted">Survey Number</label>
+                             <div class="fw-bold" id="detail-survey">-</div>
+                         </div>
+                         <div class="col-md-3">
+                             <label class="small text-muted">Patta Number</label>
+                             <div class="fw-bold" id="detail-patta">-</div>
+                         </div>
+                         <div class="col-md-6">
+                             <label class="small text-muted">District</label>
+                             <div class="fw-bold" id="detail-district">-</div>
+                         </div>
+                         <div class="col-md-6">
+                             <label class="small text-muted">Taluk</label>
+                             <div class="fw-bold" id="detail-taluk">-</div>
+                         </div>
+                         <div class="col-md-6">
+                             <label class="small text-muted">Transfer Type</label>
+                             <div class="fw-bold" id="detail-transfer">-</div>
+                         </div>
+                         <div class="col-md-6">
+                             <label class="small text-muted">Deed Category</label>
+                             <div class="fw-bold" id="detail-deed">-</div>
+                         </div>
+                     </div>
+ 
+                     <!-- Attached Documents -->
+                     <h6 class="fw-bold text-uppercase text-secondary small mb-3 border-bottom pb-2">Attached Documents</h6>
+                     <div class="row g-2">
+                         <div class="col-12 col-md-4">
+                             <a id="link-property" target="_blank" href="#" class="btn btn-light w-100 border text-indigo py-2 text-start text-truncate small">
+                                 <i class="fa-solid fa-file-contract text-primary me-2"></i> Property Deed
+                             </a>
+                         </div>
+                         <div class="col-12 col-md-4">
+                             <a id="link-identity" target="_blank" href="#" class="btn btn-light w-100 border text-indigo py-2 text-start text-truncate small">
+                                 <i class="fa-solid fa-id-card text-primary me-2"></i> Identity Proof
+                             </a>
+                         </div>
+                         <div class="col-12 col-md-4">
+                             <a id="link-address" target="_blank" href="#" class="btn btn-light w-100 border text-indigo py-2 text-start text-truncate small">
+                                 <i class="fa-solid fa-house-user text-primary me-2"></i> Address Proof
+                             </a>
+                         </div>
+                     </div>
+ 
+                 </div>
+             </div>
+         </div>
+ 
+     </div>
+ 
+     <!-- Footer -->
+     <footer class="py-4 mt-auto">
+         <div class="container text-center">
+             <div class="d-flex align-items-center justify-content-center">
+                 <i class="fa-solid fa-map-location-dot fs-3 text-primary me-2"></i>
+                 <span class="navbar-brand-text">TamilNilam Portal</span>
+             </div>
+         </div>
+     </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Centralized configuration script -->
+    <script src="js/config.js"></script>
+
+    <!-- JavaScript integration with Fetch API -->
+    <script>
+        let currentUser = null;
+        let allApplications = [];
+
+        // Route Guard Checks
+        document.addEventListener("DOMContentLoaded", () => {
+            const userJson = localStorage.getItem("patta_user");
+            if (!userJson) {
+                window.location.href = "login.html";
+                return;
+            }
+            currentUser = JSON.parse(userJson);
+
+            if (currentUser.role === "ADMIN") {
+                window.location.href = "admin-dashboard.html";
+                return;
+            }
+
+            loadCitizenRecords();
+        });
+
+        // Fetch user records
+        async function loadCitizenRecords() {
+            const API_URL = `${CONFIG.API_BASE_URL}/api/patta/user/${currentUser.id}`;
+
+            try {
+                const response = await fetch(API_URL);
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    allApplications = result.data;
+                    renderSelectorList(allApplications);
+
+                    // Check if URL contains query parameter e.g. status.html?id=3
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const appIdParam = urlParams.get("id");
+
+                    if (appIdParam) {
+                        selectApplication(appIdParam);
+                    }
+                } else {
+                    console.error("Error: " + result.message);
+                }
+            } catch (error) {
+                console.error("Records fetch failed: ", error);
+            }
+        }
+
+        // Render selectors inside left side list
+        function renderSelectorList(apps) {
+            const listContainer = document.getElementById("app-selector-list");
+            listContainer.innerHTML = "";
+
+            if (apps.length === 0) {
+                listContainer.innerHTML = `<div class="p-3 text-center text-muted small">No applications filed.</div>`;
+                return;
+            }
+
+            // Sort applications descending
+            apps.sort((a, b) => b.id - a.id);
+
+            apps.forEach(app => {
+                const item = document.createElement("button");
+                item.className = "list-group-item list-group-item-action p-3 d-flex justify-content-between align-items-center border-0 border-bottom";
+                item.id = `app-select-btn-${app.id}`;
+                item.onclick = () => selectApplication(app.id);
+
+                let badgeStyle = "bg-warning-subtle text-warning border-warning-subtle";
+                if (app.status.toLowerCase() === "approved") {
+                    badgeStyle = "bg-success-subtle text-success border-success-subtle";
+                } else if (app.status.toLowerCase() === "rejected") {
+                    badgeStyle = "bg-danger-subtle text-danger border-danger-subtle";
+                }
+
+                item.innerHTML = `
+                    <div>
+                        <div class="fw-bold text-indigo mb-0">#PA-${app.id}</div>
+                        <small class="text-secondary" style="font-size: 0.75rem;">${app.applicantName}</small>
+                    </div>
+                    <span class="badge border px-2 py-1 ${badgeStyle}" style="font-size: 0.7rem;">${app.status}</span>
+                `;
+
+                listContainer.appendChild(item);
+            });
+        }
+
+        // Perform application selection updates
+        function selectApplication(id) {
+            const app = allApplications.find(a => a.id == id);
+            if (!app) return;
+
+            // Remove active highlight from all buttons
+            document.querySelectorAll("#app-selector-list button").forEach(btn => btn.classList.remove("active"));
+            
+            // Add active highlight to selected button
+            const selectedBtn = document.getElementById(`app-select-btn-${id}`);
+            if (selectedBtn) selectedBtn.classList.add("active");
+
+            // Hide select instruction, reveal details card
+            document.getElementById("select-instruction-card").classList.add("d-none");
+            const detailsCard = document.getElementById("details-card");
+            detailsCard.classList.remove("d-none");
+
+            // Fill text fields
+            document.getElementById("detail-app-id").innerText = `#PA-${app.id}`;
+            document.getElementById("detail-name").innerText = app.applicantName;
+            document.getElementById("detail-survey").innerText = app.surveyNumber;
+            document.getElementById("detail-patta").innerText = app.pattaNumber;
+            document.getElementById("detail-district").innerText = app.district || "-";
+            document.getElementById("detail-taluk").innerText = app.taluk || "-";
+            document.getElementById("detail-transfer").innerText = app.transferType === "ISD" ? "Involving Sub-Division (ISD)" : "Non Sub-Division (NISD)";
+            document.getElementById("detail-deed").innerText = app.documentType;
+
+            // Update badge status
+            const badge = document.getElementById("detail-app-badge");
+            badge.innerText = app.status;
+            badge.className = "badge badge-status"; // Reset
+
+            if (app.status.toLowerCase() === "approved") {
+                badge.classList.add("status-approved");
+            } else if (app.status.toLowerCase() === "rejected") {
+                badge.classList.add("status-rejected");
+            } else {
+                badge.classList.add("status-pending");
+            }
+
+            // Update Document Hyperlinks
+            const baseFileUrl = CONFIG.API_BASE_URL + "/api/patta/files/";
+            document.getElementById("link-property").href = baseFileUrl + app.propertyDocument;
+            document.getElementById("link-identity").href = baseFileUrl + app.identityProof;
+            document.getElementById("link-address").href = baseFileUrl + app.addressProof;
+
+            // Update timeline stepper progress
+            updateTimelineStepper(app.status);
+        }
+
+        // Update stepper progress nodes & lines
+        function updateTimelineStepper(status) {
+            const progress = document.getElementById("timeline-progress");
+            const step2 = document.getElementById("step-2");
+            const step3 = document.getElementById("step-3");
+            const icon3 = document.getElementById("step-3-icon");
+            const label3 = document.getElementById("step-3-label");
+
+            // Reset step 3 styles
+            step3.className = "timeline-step";
+            icon3.className = "fa-solid fa-certificate";
+            label3.innerText = "Final Decision";
+
+            if (status.toLowerCase() === "pending") {
+                progress.style.width = "50%"; // In progress line
+                step2.className = "timeline-step active"; // Inspecting active
+            } else if (status.toLowerCase() === "approved") {
+                progress.style.width = "100%"; // Fully filled
+                step2.className = "timeline-step completed"; // Inspecting done
+                step3.className = "timeline-step completed"; // Approved done
+                icon3.className = "fa-solid fa-circle-check";
+                label3.innerText = "Approved!";
+            } else if (status.toLowerCase() === "rejected") {
+                progress.style.width = "100%";
+                step2.className = "timeline-step completed";
+                step3.className = "timeline-step bg-danger border-danger text-white"; // Rejected
+                icon3.className = "fa-solid fa-circle-xmark";
+                label3.innerText = "Rejected";
+                label3.style.color = "#dc2626";
+            }
+        }
+
+        // Log out
+        function logoutCitizen() {
+            localStorage.removeItem("patta_user");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>

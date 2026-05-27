@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TamilNilam Portal | Land Revenue Portal</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom Glassmorphism Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Floating Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom py-3 sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fa-solid fa-map-location-dot fs-3 text-primary me-2"></i>
+                <span class="navbar-brand-text">TamilNilam Portal</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#process">Process Flow</a>
+                    </li>
+                    <!-- Dynamic Auth Actions based on localStorage -->
+                    <li class="nav-item ms-lg-3" id="nav-auth-actions">
+                        <a href="login.html" class="btn btn-outline-primary px-4 me-2 font-weight-500">Sign In</a>
+                        <a href="register.html" class="btn btn-primary-gradient px-4">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="py-5 my-5">
+        <div class="container">
+            <div class="row align-items-center g-5 justify-content-center text-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary px-3 py-2 mb-3">
+                        <i class="fa-solid fa-circle-check me-1"></i> Digital Revenue Administration
+                    </span>
+                    <h1 class="display-4 fw-bold mb-4 text-primary">
+                        Digital Land Patta Transfers
+                    </h1>
+                    <div class="d-flex flex-wrap gap-3 justify-content-center" id="hero-actions">
+                        <a href="register.html" class="btn btn-primary-gradient btn-lg px-5 py-3">Get Started <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Information Section -->
+    <section class="py-5 my-5" id="services">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Application Categories</h2>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <!-- ISD Card -->
+                <div class="col-md-5">
+                    <div class="glass-card p-5 h-100 d-flex flex-column text-center">
+                        <div class="bg-primary text-white rounded-circle d-inline-flex justify-content-center align-items-center mx-auto mb-4" style="width: 70px; height: 70px;">
+                            <i class="fa-solid fa-vector-square fs-3"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Involving Sub-Division (ISD)</h4>
+                        <hr class="my-4 text-muted">
+                        <ul class="list-unstyled text-start mb-4 mx-auto" style="max-width: 250px;">
+                            <li><i class="fa-regular fa-circle-check text-success me-2"></i> Plot splitting</li>
+                            <li><i class="fa-regular fa-circle-check text-success me-2"></i> Custom Land Survey</li>
+                            <li><i class="fa-regular fa-circle-check text-success me-2"></i> New boundary mapping</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- NISD Card -->
+                <div class="col-md-5">
+                    <div class="glass-card p-5 h-100 d-flex flex-column text-center">
+                        <div class="bg-info text-white rounded-circle d-inline-flex justify-content-center align-items-center mx-auto mb-4" style="width: 70px; height: 70px;">
+                            <i class="fa-solid fa-paste fs-3"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Non Sub-Division (NISD)</h4>
+                        <hr class="my-4 text-muted">
+                        <ul class="list-unstyled text-start mb-4 mx-auto" style="max-width: 250px;">
+                            <li><i class="fa-regular fa-circle-check text-success me-2"></i> Direct name transfer</li>
+                            <li><i class="fa-regular fa-circle-check text-success me-2"></i> Unchanged boundaries</li>
+                            <li><i class="fa-regular fa-circle-check text-success me-2"></i> Direct database update</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step by Step flow chart display -->
+    <section class="py-5 bg-white border-top border-bottom border-light" id="process">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Process Flow</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="bg-primary-subtle text-primary rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 60px; height: 60px;">
+                            <span class="fs-4 fw-bold">1</span>
+                        </div>
+                        <h5 class="fw-bold">Create Account</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="bg-primary-subtle text-primary rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 60px; height: 60px;">
+                            <span class="fs-4 fw-bold">2</span>
+                        </div>
+                        <h5 class="fw-bold">File Form</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="bg-primary-subtle text-primary rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 60px; height: 60px;">
+                            <span class="fs-4 fw-bold">3</span>
+                        </div>
+                        <h5 class="fw-bold">Admin Verification</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="bg-primary-subtle text-primary rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3" style="width: 60px; height: 60px;">
+                            <span class="fs-4 fw-bold">4</span>
+                        </div>
+                        <h5 class="fw-bold">Patta Approved</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 mt-auto">
+        <div class="container text-center">
+            <div class="d-flex align-items-center justify-content-center">
+                <i class="fa-solid fa-map-location-dot fs-3 text-primary me-2"></i>
+                <span class="navbar-brand-text">TamilNilam Portal</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Session check script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userJson = localStorage.getItem("patta_user");
+            if (userJson) {
+                const user = JSON.parse(userJson);
+                const isConfigAdmin = user.role === "ADMIN";
+                
+                // If user is already authenticated, update Navbar action buttons and Hero action buttons
+                const navAuthActions = document.getElementById("nav-auth-actions");
+                const heroActions = document.getElementById("hero-actions");
+                
+                const targetDash = isConfigAdmin ? 'admin-dashboard.html' : 'dashboard.html';
+                
+                if (navAuthActions) {
+                    navAuthActions.innerHTML = `
+                        <span class="me-3 d-none d-lg-inline text-secondary font-weight-500">
+                            <i class="fa-solid fa-user-circle me-1 text-primary"></i> Hello, <strong>${user.name}</strong>
+                        </span>
+                        <a href="${targetDash}" class="btn btn-primary-gradient px-4 rounded-pill">Go to Dashboard <i class="fa-solid fa-circle-chevron-right ms-1"></i></a>
+                        <button onclick="logoutUser()" class="btn btn-outline-danger ms-2 rounded-pill px-3"><i class="fa-solid fa-sign-out-alt"></i></button>
+                    `;
+                }
+                
+                if (heroActions) {
+                    heroActions.innerHTML = `
+                        <a href="${targetDash}" class="btn btn-primary-gradient btn-lg px-5 py-3 shadow">Open Dashboard <i class="fa-solid fa-circle-chevron-right ms-2"></i></a>
+                        <button onclick="logoutUser()" class="btn btn-outline-danger btn-lg px-4 py-3 rounded-12"><i class="fa-solid fa-power-off me-2"></i> Log Out</button>
+                    `;
+                }
+            }
+        });
+
+        function logoutUser() {
+            localStorage.removeItem("patta_user");
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
